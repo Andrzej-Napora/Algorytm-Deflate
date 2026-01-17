@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="Kompresja Deflate/Kompresja Deflate.vcxproj" Id="d738d3de-0c76-46b1-930c-54792236c073" />
+</Solution>
