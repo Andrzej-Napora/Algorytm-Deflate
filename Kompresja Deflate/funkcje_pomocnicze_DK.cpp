@@ -13,27 +13,21 @@
 
 //funkcja przesuwajaca indexy zmiennej decoded, oraz zapisujaca do pliku zawartosc zmiennej decoded
 //jesli doszlo do jej przepelnienia
-void decodedSwap(std::string& dekoded, const unsigned int oneBajt, bool& first, std::ofstream& ofile)
+void decodedSwap(std::string& dekoded, const unsigned int twoBajt, std::ofstream& ofile)
 {
-	if (dekoded.size() > 2 * oneBajt)
+	if (dekoded.size() > 2 * twoBajt)
 	{
 		int size = dekoded.size();
-		//przy pierwszym przejsciu czytamy wartosci od indexu 0
-		if (first)
-		{
-			first = false;
-			ofile.write(&dekoded[0], size);
-		}
-		//przy nastepnych przejsciach czytamy wartosci od indexu oneBajt
-		else
-			ofile.write(&dekoded[oneBajt], size - oneBajt);
+
+		//zapisuje do pliku juz zdekodowane dane
+		ofile.write(&dekoded[twoBajt], size - twoBajt);
 
 		//przenosimy zawartosc zmiennej decoded z drugiej polowki do pierwszej,
 		//z ktorej wartosci odczytywac bedzie tablica hashujaca,
 		//nastepnie zmiejszamy jej rozmiar o polowe 
-		for (int i = 0; i < oneBajt; i++)
-			dekoded[i] = dekoded[size - oneBajt + i];
-		dekoded.resize(oneBajt);
+		for (int i = 0; i < twoBajt; i++)
+			dekoded[i] = dekoded[size - twoBajt + i];
+		dekoded.resize(twoBajt);
 	}
 }
 
@@ -116,12 +110,12 @@ unsigned short extraBitLoadUp(char& bit_count, std::string& data_chunk,
 //funkcja sprawdzajaca czy nie skonczyly sie dane do odczytu i wczytujaca nowe
 void readSwap(int& index, std::string& data_chunk, std::ifstream& ifile, int& bytes_to_read)
 {
-
+	unsigned int twoBajt = 2 * 32768;
 	if (index >= bytes_to_read)
 	{
-		ifile.read(&data_chunk[0], data_chunk.size());
+		ifile.read(&data_chunk[twoBajt], data_chunk.size()-twoBajt);
 		bytes_to_read = ifile.gcount();
-		index = 0;
+		index = twoBajt;
 	}
 }
 

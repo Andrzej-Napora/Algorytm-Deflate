@@ -62,7 +62,7 @@ unsigned short bitLoadUp(char& bit_count, std::string& data_chunk,
 unsigned short extraBitLoadUp(char& bit_count, std::string& data_chunk,
 	int& index, unsigned short& extraBits, int& bytes_to_read, std::ifstream& ifile);
 
-void decodedSwap(std::string& dekoded, const unsigned int oneBajt, bool& first, std::ofstream& ofile);
+void decodedSwap(std::string& dekoded, const unsigned int oneBajt, std::ofstream& ofile);
 
 
 void readSwap(int& index, std::string& data_chunk, std::ifstream& ifile, int& bytes_to_read);

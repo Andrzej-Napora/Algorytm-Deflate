@@ -20,7 +20,7 @@ int main()
 	std::vector<Token> token_chain;
 	try
 	{
-		token_chain = AlgorytmKodujacyLZ77(ipath1);
+		token_chain = AlgorytmKodujacyLZ77(ipath2);
 	}
 	catch (const std::exception& e)
 	{

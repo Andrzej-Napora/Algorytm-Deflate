@@ -49,6 +49,7 @@ void deflateDecompression(const std::string& source_path, const std::string& fin
 		//deklaracja map przechowywujacych czestotliwosci wystapien literalow, dlugosci i dystansow
 		std::map<unsigned short, unsigned int> letter_count;
 		std::map<unsigned short, unsigned int> distance_count;
+
 		//wypelniam mapy danymi z naglowka
 		headerReader(ifile, letter_count, distance_count);
 
@@ -56,30 +57,35 @@ void deflateDecompression(const std::string& source_path, const std::string& fin
 		//dla literalow i dlugosci
 		Node* letter_root = creatingRoot(letter_count);
 		std::map<unsigned short, std::string> HuffmanLetterCode = HuffmanTree(letter_root);
+
 		//dla dystansow
 		Node* distance_root = creatingRoot(distance_count);
 		std::map<unsigned short, std::string> HuffmanDistanceCode = HuffmanTree(distance_root);
 
 		//deklaracja wymaganych zmiennych pomocniczych
 		unsigned int oneBajt = 32768;	//maksymalny obslugiwany dystans wg dokumentu RFC 1951
+		unsigned int twoBajt = 2 * oneBajt;
 		std::string data_chunk;
 
 		//do zmiennej decoded wczytywane beda odkodowane dane,
 		//i na podstawie tych danych podstawie tablica hashujaca bedzie odczytywac znaki
-		std::string decoded;
 
-		data_chunk.resize(2 * oneBajt);
+		//deklaracja stringa w ktorym przechowywane beda odkodowane dane
+		std::string decoded;
+		decoded.resize(twoBajt,0);	//chce zeby pierwsze dane zaczynaly sie od indeksu twoBajt
+
+		data_chunk.resize(2 * twoBajt,0);
 		char bit_count{};
-		bool first_pass = true;
-		//warunek pobierajacy 2*oneBajt znakow z pliku, lub jesli to sie nie uda, sprawdzajacy,
+
+		//warunek pobierajacy twoBajt znakow z pliku, lub jesli to sie nie uda, sprawdzajacy,
 		//czy pobrane zostalo cokolwiek
-		while (ifile.read(&data_chunk[0], 2 * oneBajt) || ifile.gcount() > 0)
+		while (ifile.read(&data_chunk[twoBajt], twoBajt) || ifile.gcount() > 0)
 		{
 			//ilosc dobrych danych, ktore zostaly wczytane do data_chunk; obsluga koncowki pliku
-			int bytes_to_read = ifile.gcount(); 
+			int bytes_to_read = ifile.gcount() + twoBajt; 
 
 			unsigned short decoded_value{};
-			int index{};
+			int index = twoBajt;
 			while (index < bytes_to_read)
 			{
 				//zwracam zdekodowany bajt
@@ -88,15 +94,9 @@ void deflateDecompression(const std::string& source_path, const std::string& fin
 				//oblsluga znaku konca pliku 256
 				if (decoded_value == 256)
 				{
-					//jesli plik skonczyl sie przy pierwszym przejsciu, zapisujemy do pliku wszystko
-					//od poczatku do konca zmiennej decoded
-					if (first_pass)
-						ofile.write(&decoded[0], decoded.size());
-
-					//jesli plik skonczyl sie po pierwszym przejsciu, czyli byl wiekszy niz 65535 znakow,
-					//zapisujemy do pliku wszystko, od indexu = oneBajt do konca zmiennej decoded
-					else if (decoded.size() > oneBajt)
-						ofile.write(&decoded[oneBajt], decoded.size() - oneBajt);
+					//zapisuje do pliku cokolwiek znajdowalo sie przed znakiem eof
+					if (decoded.size() > twoBajt)
+						ofile.write(&decoded[twoBajt], decoded.size() - twoBajt);
 					return;
 				}
 
@@ -106,7 +106,7 @@ void deflateDecompression(const std::string& source_path, const std::string& fin
 					decoded.push_back(decoded_value);
 
 					//sprawdzam czy decoded nie zostalo przepelnione
-					decodedSwap(decoded, oneBajt, first_pass, ofile);
+					decodedSwap(decoded, twoBajt, ofile);
 				}
 
 				//obsluga dlugosci i dystansu
@@ -145,7 +145,7 @@ void deflateDecompression(const std::string& source_path, const std::string& fin
 					}
 
 					//sprawdzam, czy dekoded nie zostalo przepelnione
-					decodedSwap(decoded, oneBajt, first_pass, ofile);
+					decodedSwap(decoded, twoBajt, ofile);
 				}
 			}
 		}
