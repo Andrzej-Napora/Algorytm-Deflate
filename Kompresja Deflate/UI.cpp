@@ -3,7 +3,11 @@
 #include <iomanip>
 #include <vector>
 #include <cstdlib>
-#include "../Kompresja Deflate/Header.h"
+#include "../Kompresja Deflate/UI.h"
+#include "../Kompresja Deflate/algorytmKodujacy.h"
+#include "../Kompresja Deflate/dekompresja.h"
+#include "../Kompresja Deflate/kompresja.h"
+
 
 using namespace std;
 

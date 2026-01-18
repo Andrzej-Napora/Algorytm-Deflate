@@ -3,7 +3,7 @@
 #include <map>
 #include <iomanip>
 #include <vector>
-#include "../Kompresja Deflate/Header.h"
+#include "../Kompresja Deflate/UI.h"
 
 using namespace std;
 

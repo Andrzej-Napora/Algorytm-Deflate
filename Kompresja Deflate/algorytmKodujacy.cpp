@@ -9,7 +9,8 @@
 #include <fstream>
 #include <queue>
 #include <algorithm>
-#include "../Kompresja Deflate/Header.h"
+#include "../Kompresja Deflate/algorytmKodujacy.h"
+#include "../Kompresja Deflate/funkcje_pomocnicze_AK.h"
 
 //algorytm kodujacy LZ77
 std::vector<Token> AlgorytmKodujacyLZ77(const std::string& ipath)

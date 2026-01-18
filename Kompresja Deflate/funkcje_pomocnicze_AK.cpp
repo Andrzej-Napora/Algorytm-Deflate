@@ -9,7 +9,7 @@
 #include <fstream>
 #include <queue>
 #include <algorithm>
-#include "../Kompresja Deflate/Header.h"
+#include "../Kompresja Deflate/funkcje_pomocnicze_AK.h"
 
 //funkcja szukajaca dopasowan w tablicy hash'ujacej
 Token hashSearch(long long cursor1, const std::string& fullText,

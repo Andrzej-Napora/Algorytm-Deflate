@@ -137,7 +137,13 @@
     <ClCompile Include="UI.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Header.h" />
+    <ClInclude Include="algorytmKodujacy.h" />
+    <ClInclude Include="dekompresja.h" />
+    <ClInclude Include="funkcje_pomocnicze_AK.h" />
+    <ClInclude Include="funkcje_pomocnicze_DK.h" />
+    <ClInclude Include="kompresja.h" />
+    <ClInclude Include="Tabele_RFC_1951.h" />
+    <ClInclude Include="UI.h" />
     <ClInclude Include="structs.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -9,7 +9,7 @@
 #include <fstream>
 #include <queue>
 #include <algorithm>
-#include "../Kompresja Deflate/Header.h"
+#include "../Kompresja Deflate/Tabele_RFC_1951.h"
 
 //Konwersja dlugosci zgodna z dokumentem RFC 1951
 LengthCode lengthConversion(unsigned short length)

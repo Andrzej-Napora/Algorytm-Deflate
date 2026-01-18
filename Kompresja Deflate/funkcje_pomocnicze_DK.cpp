@@ -9,7 +9,7 @@
 #include <fstream>
 #include <queue>
 #include <algorithm>
-#include "../Kompresja Deflate/Header.h"
+#include "../Kompresja Deflate/funkcje_pomocnicze_DK.h"
 
 //funkcja przesuwajaca indexy zmiennej decoded, oraz zapisujaca do pliku zawartosc zmiennej decoded
 //jesli doszlo do jej przepelnienia

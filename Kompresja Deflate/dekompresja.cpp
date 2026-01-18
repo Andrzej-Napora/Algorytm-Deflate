@@ -9,7 +9,10 @@
 #include <fstream>
 #include <queue>
 #include <algorithm>
-#include "../Kompresja Deflate/Header.h"
+#include "../Kompresja Deflate/dekompresja.h"
+#include "../Kompresja Deflate/funkcje_pomocnicze_DK.h"
+#include "../Kompresja Deflate/kompresja.h"
+#include "../Kompresja Deflate/Tabele_RFC_1951.h"
 
 //funkcja odczytujace dane z naglowka i budujace na ich podstawie mape z czestotliwosciami wystapien literalow i dlugosci,
 //oraz osobno, z czestotliwosciami wystapien dystnasow

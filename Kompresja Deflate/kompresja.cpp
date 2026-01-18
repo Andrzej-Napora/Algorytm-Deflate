@@ -9,7 +9,7 @@
 #include <fstream>
 #include <queue>
 #include <algorithm>
-#include "../Kompresja Deflate/Header.h"
+#include "../Kompresja Deflate/kompresja.h"
 
 
 //funkcja przyjmuje mapy przez referencje i modyfikuje je. Kazdemu znakowi przypisywana jest ilosc jego wystapien,
