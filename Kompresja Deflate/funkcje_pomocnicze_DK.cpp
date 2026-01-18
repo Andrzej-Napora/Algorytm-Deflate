@@ -113,9 +113,9 @@ void readSwap(int& index, std::string& data_chunk, std::ifstream& ifile, int& by
 	unsigned int twoBajt = 2 * 32768;
 	if (index >= bytes_to_read)
 	{
-		ifile.read(&data_chunk[twoBajt], data_chunk.size()-twoBajt);
+		ifile.read(&data_chunk[0], twoBajt);
 		bytes_to_read = ifile.gcount();
-		index = twoBajt;
+		index = 0;
 	}
 }
 

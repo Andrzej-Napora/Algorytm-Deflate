@@ -12,5 +12,5 @@ int main()
 
 	Interface();
 
-	return 1;
+	return 0;
 }

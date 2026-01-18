@@ -75,27 +75,28 @@ void deflateDecompression(const std::string& source_path, const std::string& fin
 		//deklaracja wymaganych zmiennych pomocniczych
 		unsigned int oneBajt = 32768;	//maksymalny obslugiwany dystans wg dokumentu RFC 1951
 		unsigned int twoBajt = 2 * oneBajt;
-		std::string data_chunk;
 
 		//do zmiennej decoded wczytywane beda odkodowane dane,
 		//i na podstawie tych danych podstawie tablica hashujaca bedzie odczytywac znaki
 
-		//deklaracja stringa w ktorym przechowywane beda odkodowane dane
+		//zmienna w ktorej przechowywane beda odkodowane dane
 		std::string decoded;
 		decoded.resize(twoBajt,0);	//chce zeby pierwsze dane zaczynaly sie od indeksu twoBajt
 
-		data_chunk.resize(2 * twoBajt,0);
+		//zmienna do ktorej wczytywane beda dane wejsciowe
+		std::string data_chunk;
+		data_chunk.resize(twoBajt,0);
 		char bit_count{};
 
 		//warunek pobierajacy twoBajt znakow z pliku, lub jesli to sie nie uda, sprawdzajacy,
 		//czy pobrane zostalo cokolwiek
-		while (ifile.read(&data_chunk[twoBajt], twoBajt) || ifile.gcount() > 0)
+		while (ifile.read(&data_chunk[0], twoBajt) || ifile.gcount() > 0)
 		{
 			//ilosc dobrych danych, ktore zostaly wczytane do data_chunk; obsluga koncowki pliku
-			int bytes_to_read = ifile.gcount() + twoBajt; 
+			int bytes_to_read = ifile.gcount(); 
 
 			unsigned short decoded_value{};
-			int index = twoBajt;
+			int index = 0;
 			while (index < bytes_to_read)
 			{
 				//zwracam zdekodowany bajt
@@ -107,6 +108,9 @@ void deflateDecompression(const std::string& source_path, const std::string& fin
 					//zapisuje do pliku cokolwiek znajdowalo sie przed znakiem eof
 					if (decoded.size() > twoBajt)
 						ofile.write(&decoded[twoBajt], decoded.size() - twoBajt);
+					//usuwam drzewa binarne zapisane na stercie
+					nodeDelete(letter_root);
+					nodeDelete(distance_root);
 					return;
 				}
 
