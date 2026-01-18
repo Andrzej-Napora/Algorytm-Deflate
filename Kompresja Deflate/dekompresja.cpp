@@ -42,10 +42,17 @@ void headerReader(std::ifstream& ifile, std::map<unsigned short, unsigned int>& 
 //funkcja dekompresujaca, odczytujaca i zapisujaca w pliku wyjsciowym
 void deflateDecompression(const std::string& source_path, const std::string& final_path)
 {
-	std::ifstream ifile(source_path, std::ios::binary);
+	std::ifstream ifile(source_path, std::ios::binary | std::ios::ate);
 	std::ofstream ofile(final_path, std::ios::binary);
 	if (ifile.good() && ofile.good())
 	{
+		auto stream_size = ifile.tellg();	//konwersja ostatniego indeksu pliku na ilosc znakow
+		if (stream_size == 0)		//obsluga pustego pliku
+		{
+			throw std::runtime_error("Pusty plik do dekompresji");
+		}
+		ifile.seekg(0);
+
 		//deklaracja map przechowywujacych czestotliwosci wystapien literalow, dlugosci i dystansow
 		std::map<unsigned short, unsigned int> letter_count;
 		std::map<unsigned short, unsigned int> distance_count;
@@ -149,6 +156,13 @@ void deflateDecompression(const std::string& source_path, const std::string& fin
 				}
 			}
 		}
+		//usuwam drzewa binarne zapisane na stercie
+		nodeDelete(letter_root);
+		nodeDelete(distance_root);
+	}
+	else
+	{
+		throw std::runtime_error("Wystapil blad przy otwieraniu pliku do dekompresji");
 	}
 }
 

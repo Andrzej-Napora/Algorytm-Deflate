@@ -22,7 +22,7 @@ std::vector<Token> AlgorytmKodujacyLZ77(const std::string& ipath)
 		auto stream_size = ifile.tellg();	//konwersja ostatniego indeksu pliku na ilosc znakow
 		if (stream_size == 0)		//obsluga pustego pliku
 		{
-			throw std::runtime_error("Pusty plik");
+			throw std::runtime_error("Pusty plik do kompresji");
 		}
 		long long size = (long long)stream_size;
 		ifile.seekg(0);		//powrot na pierwszy indeks pliku
@@ -75,7 +75,7 @@ std::vector<Token> AlgorytmKodujacyLZ77(const std::string& ipath)
 	}
 	else
 	{
-		std::cout << "Blad odczytu pliku przy kodowaniu" << std::endl;
+		throw std::runtime_error("Wystapil blad przy otwieraniu pliku do kompresji");
 	}
 	Token eof(true);	//konstruktor znaku konca pliku
 	token_chain.push_back(eof);
