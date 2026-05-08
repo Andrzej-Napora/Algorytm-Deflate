@@ -17,11 +17,8 @@ void wyswietlLogo()
 void Interface()
 {
 
-	//rozne sciezki testowe
-	string iPath = "../resources/proba.txt";
-	string iPath0 = "../resources/skrotCity.csv";
-	string iPath3 = "../resources/TesktLiteracki.txt";
-	string iPath2 = "../resources/plik_do_kompresji.txt";
+	//sciezki do plikow .txt
+	string iPath = "../resources/plik_do_kompresji.txt";
 	string binPath = "../resources/plik_skompresowany.txt";
 	string finalPath = "../resources/plik_po_dekompresji.txt";
 
@@ -39,7 +36,7 @@ void Interface()
 			cout << " [3] Kompresuj i dekompresuj plik" << endl;
 			cout << " [4] Zakoncz" << endl;
 			cout << endl;
-			cout << " domyslna sciezko do kompresji to C:/Users/andrz/source/repos/Kompresja Deflate/resources/plik_do_kompresji.txt" << endl;
+			cout << " domyslna sciezka do kompresji to: " << iPath << endl;
 			cout << endl;
 			cout << " Wybierz opcje: ";
 		}
